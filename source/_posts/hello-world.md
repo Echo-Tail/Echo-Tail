@@ -1,38 +1,15 @@
 ---
-title: Hello World
+title: Next 主题安装及配置
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+## 安装
 
-### Create a new post
-
-``` bash
-$ hexo new "My New Post"
+```shell
+npm install hexo-theme-next
 ```
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+## 自定义配置文件
 
-### Run server
+为避免 git 冲突，我们不应该直接修改主题源码，可通过指定配置文件的方式来对主题进行配置，这里我们将 next 主题配置文件 `_config.yml` 拷贝重命名为 `_config.next.yml`放到站点根目录下
 
-``` bash
-$ hexo server
-```
-
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-``` bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+其他一些修改参考：[Custom File](https://theme-next.js.org/docs/advanced-settings/custom-files.html)
