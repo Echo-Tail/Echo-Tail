@@ -1,5 +1,6 @@
 ---
 title: Next 主题安装及配置
+tags: [hexo, next, next-theme, blog]
 ---
 
 ## 安装
@@ -21,9 +22,23 @@ npm install hexo-word-counter
 hexo clean
 ```
 
-## 安装帖子插件
+## 安装热门文章插件
 
 ```shell
 npm install hexo-related-posts
+hexo clean
+```
+
+## 安装搜索插件
+
+```shell
+npm install hexo-generator-searchdb
+hexo clean
+```
+
+## 安装网站地图插件
+
+```shell
+npm install hexo-generator-sitemap
 hexo clean
 ```
