@@ -15,7 +15,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://github.com/Echo-Tail
+url: https://echo-tail.github.io/Echo-Tail/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -106,3 +106,24 @@ theme_config:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# Search
+## Docs: https://github.com/wzpan/hexo-generator-search
+search:
+  path: search.xml
+  field: post
+  content: true
+  template: ./search.xml
+  format: html
+
+# Sitemap
+## Docs https://github.com/hexojs/hexo-generator-sitemap
+sitemap:
+  path: 
+    - sitemap.xml
+    - sitemap.txt
+  #template: ./sitemap_template.xml
+  #template_txt: ./sitemap_template.txt
+  rel: false
+  tags: true
+  categories: true
