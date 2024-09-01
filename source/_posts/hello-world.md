@@ -13,3 +13,17 @@ npm install hexo-theme-next
 为避免 git 冲突，我们不应该直接修改主题源码，可通过指定配置文件的方式来对主题进行配置，这里我们将 next 主题配置文件 `_config.yml` 拷贝重命名为 `_config.next.yml`放到站点根目录下
 
 其他一些修改参考：[Custom File](https://theme-next.js.org/docs/advanced-settings/custom-files.html)
+
+## 安装字数统计插件
+
+```shell
+npm install hexo-word-counter
+hexo clean
+```
+
+## 安装帖子插件
+
+```shell
+npm install hexo-related-posts
+hexo clean
+```
