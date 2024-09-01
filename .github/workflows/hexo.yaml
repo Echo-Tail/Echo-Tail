@@ -51,6 +51,9 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: Replace google-analytics.njk
+        run: |
+          cp ${{ github.workspace }}/source/_data/google-analytics.njk ${{ github.workspace }}/node_modules/hexo-theme-next/layout/_third-party/analytics/google-analytics.njk
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
