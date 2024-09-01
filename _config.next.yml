@@ -724,7 +724,7 @@ livere_uid: # <your_uid>
 # For more information: https://gitalk.github.io
 gitalk:
   enable: true
-  github_id: Echo-Tail # GitHub repo owner
+  github_id: EchoTailGitalkComments # GitHub repo owner
   repo: Echo-Tail # Repository name to store issues
   client_id: Ov23liJtNJK3E7wiLEjN # GitHub Application Client ID
   client_secret: ***REDACTED*** # GitHub Application Client Secret
