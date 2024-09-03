@@ -67,8 +67,8 @@ creative_commons:
   license: by-nc-sa
   # Available values: big | small
   size: small
-  sidebar: false
-  post: false
+  sidebar: true
+  post: true
   # You can set a language value if you prefer a translated version of CC license, e.g. deed.zh
   # CC licenses are available in 39 languages, you can find the specific and correct abbreviation you need on https://creativecommons.org
   language: deed.zh
@@ -97,13 +97,13 @@ open_graph:
 # External url should start with http:// or https://
 menu:
   home: / || fa fa-home
-  #about: /about/ || fa fa-user
-  tags: /tags/ || fa fa-tags
-  categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive
+  categories: /categories/ || fa fa-th
+  tags: /tags/ || fa fa-tags
+  about: /about/ || fa fa-user
   #schedule: /schedule/ || fa fa-calendar
   #sitemap: /sitemap.xml || fa fa-sitemap
-  commonweal: /404/ || fa fa-heartbeat
+  #commonweal: /404/ || fa fa-heartbeat
 
 # Enable / Disable menu icons / item badges.
 menu_settings:
@@ -166,6 +166,7 @@ social:
   #YouTube: https://youtube.com/yourname || fab fa-youtube
   #Instagram: https://instagram.com/yourname || fab fa-instagram
   #Skype: skype:yourname?call|chat || fab fa-skype
+  #CC: https://creativecommons.org/licenses/by-nc-sa/4.0/ || 
 
 social_icons:
   enable: true
@@ -182,7 +183,7 @@ links:
   #Title: https://example.com
   Github: https://github.com
   hys: https://imaklex5.github.io/
-  #ikyun: http://bolg.lkanyun.com/
+  ikyun: https://blog.lkanyun.com/
   SnailsWalk: https://www.cnblogs.com/SnailsWalk
 
 # Table of Contents in the Sidebar
@@ -222,7 +223,7 @@ footer:
 
   # If not defined, `author` from Hexo `_config.yml` will be used.
   # Set to `false` to disable the copyright statement.
-  copyright: 本博客所有文章除特别声明外， 均采用CC BY 4.0 CN协议许可协议。转载请注明出处!
+  copyright: 
 
   # Powered by Hexo & NexT
   powered: false
@@ -245,7 +246,7 @@ footer:
 # ---------------------------------------------------------------
 
 # Use `description` in front-matter to specify post excerpt.
-excerpt_description: true
+excerpt_description: false
 
 # Read more button
 # If true, the read more button will be displayed in excerpt section.
