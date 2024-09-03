@@ -175,7 +175,7 @@ social_icons:
 
 # Blog rolls
 links_settings:
-  icon: fa fa-globe
+  icon: fa fa-user-group
   # Available values: block | inline
   layout: block
 
