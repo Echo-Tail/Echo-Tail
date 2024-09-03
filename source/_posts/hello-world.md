@@ -3,6 +3,8 @@ title: Next 主题安装及配置
 tags: [hexo, next, next-theme, blog]
 ---
 
+<!-- more -->
+
 ## 安装
 
 ```shell
