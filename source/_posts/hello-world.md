@@ -48,3 +48,10 @@ hexo clean
 npm install hexo-generator-sitemap
 hexo clean
 ```
+
+## 安装图片插件
+```shell
+npm install hexo-asset-img
+hexo clean
+```
+
