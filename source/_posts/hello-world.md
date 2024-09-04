@@ -1,7 +1,11 @@
 ---
 title: Next 主题安装及配置
 tags: [hexo, next, next-theme, blog]
+sitemap: false
+categories: [blog]
 ---
+
+本文主要记录 hexo 的 next 主题以及一些常用插件的安装
 
 <!-- more -->
 
