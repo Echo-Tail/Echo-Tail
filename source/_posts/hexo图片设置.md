@@ -16,4 +16,4 @@ categories: [blog]
 
 将 `post_asset_folder` 的值设置为 true 则会在你通过 `hexo new post xxx` 时创建一个同名文件夹用于存放资源文件，你可以通过相对路在博客中引用资源文件。 
 
-![image](./hexo图片设置/image.png)
+![image](hexo图片设置/image.png)
