@@ -24,9 +24,7 @@ categories: [LeetCode]
 **说明：你不能倾斜容器。**
 **示例 1：**
 
-{% asset_img example.jpg This is an example image %}
-
-![image](./LeetCode-11.盛最多水的容器/Pasted%20image%2020250315140105.png)
+![image](Pasted%20image%2020250315140105.png)
 
 **输入：[1,8,6,2,5,4,8,3,7]**
 **输出：49**
