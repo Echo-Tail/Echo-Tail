@@ -7,7 +7,14 @@ tags:
   - LeetCode
   - 双指针
 categories: [LeetCode]
+
 ---
+
+本文主要记录学习LeetCode11题的解题思路。
+
+<!-- more -->
+
+
 给定一个长度为 `n` 的整数数组 `height` 。有 `n` 条垂线，第 `i` 条线的两个端点是 `(i, 0)` 和 `(i, height[i])` 。
 
 找出其中的两条线，使得它们与 `x` 轴共同构成的容器可以容纳最多的水。
@@ -16,7 +23,11 @@ categories: [LeetCode]
 
 **说明：你不能倾斜容器。**
 **示例 1：**
-![image](LeetCode-11.盛最多水的容器/Pasted%20image%2020250315140105.png)
+
+{% asset_img example.jpg This is an example image %}
+
+![image](./LeetCode-11.盛最多水的容器/Pasted%20image%2020250315140105.png)
+
 **输入：[1,8,6,2,5,4,8,3,7]**
 **输出：49**
 **解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。**
