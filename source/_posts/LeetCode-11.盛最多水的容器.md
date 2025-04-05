@@ -24,7 +24,7 @@ categories: [LeetCode]
 **说明：你不能倾斜容器。**
 **示例 1：**
 
-![image](Pasted%20image%2020250315140105.png)
+{% asset_img image.png %}
 
 **输入：[1,8,6,2,5,4,8,3,7]**
 **输出：49**
