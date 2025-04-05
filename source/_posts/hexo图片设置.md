@@ -14,6 +14,6 @@ categories: [blog]
 
 ## _config.yml 的设置
 
-将 `post_asset_folder` 的值设置为 true 则会在你通过 `hexo new post xxx` 时创建一个同名文件夹用于存放资源文件，你可以通过相对路在博客中引用资源文件。 
+将 `post_asset_folder` 的值设置为 true 则会在你通过 `hexo new post xxx` 时创建一个同名文件夹用于存放资源文件，你可以通过`asset_img`标签在博客中引用资源文件。例如：`{% asset_img image.png %}`
 
-![image](hexo图片设置/image.png)
+{% asset_img image.png %}
