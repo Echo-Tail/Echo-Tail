@@ -1,5 +1,6 @@
 ---
 title: Next 主题安装及配置
+date: 2024-09-04 21:12:40
 tags: [hexo, next, next-theme, blog]
 sitemap: false
 categories: [blog]
