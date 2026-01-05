@@ -1,13 +1,13 @@
 ---
-title: Rust依赖rand构建找不到dlltool.exe问题
+title: Rust依赖rand构建找不到dlltool问题
 sitemap: false
-description: 添加rand依赖然后执行cargo build报错error calling dlltool 'dlltool.exe': program not found
+description: 添加 rand 依赖然后执行 cargo build 报错找不到 dlltool 可执行程序
 date: 2026-01-05 15:09:30
 tags: [Rust, dlltool.exe, cargo, rand]
 categories: [Rust]
 ---
 
-本文主要记录添加 `rand` 依赖 `cargo build` 报错 <font color="FA5C5C">`error calling dlltool 'dlltool.exe': program not found`</font> 问题
+本文主要记录添加 `rand` 依赖 `cargo build` 报错 <span style="color: #FA5C5C">error calling dlltool 'dlltool.exe': program not found</span> 问题
 
 <!-- more -->
 
