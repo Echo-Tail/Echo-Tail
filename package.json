@@ -25,8 +25,7 @@
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.1.0",
-    "hexo-theme-next": "^8.27.0",
-    "hexo-word-counter": "^0.2.2"
+    "hexo-theme-next": "^8.27.0"
   },
   "overrides": {
     "strip-ansi": "6.0.1"
