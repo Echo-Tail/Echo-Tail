@@ -8,8 +8,8 @@
 
 ## 博客地址
 
-https://github.com/Echo-Tail
-https://snails.cafe/
++ https://github.com/Echo-Tail
++ https://snails.cafe/
 
 ## 仓库介绍
 
