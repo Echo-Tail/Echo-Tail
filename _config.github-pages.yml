@@ -1,0 +1,5 @@
+# GitHub Pages project-site overrides.
+# Keep the default _config.yml rooted at / for https://snails.cafe.
+url: https://echo-tail.github.io/Echo-Tail
+root: /Echo-Tail/
+public_dir: public-github

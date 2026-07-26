@@ -7,7 +7,7 @@
     "clean": "hexo clean",
     "deploy": "hexo deploy",
     "server": "hexo server",
-    "test:optimization": "hexo clean && hexo generate && node test/verify-optimization.js"
+    "test:optimization": "hexo clean && hexo generate && node --test test/verification-helpers.test.js && node test/verify-optimization.js"
   },
   "hexo": {
     "version": "8.1.1"
@@ -30,5 +30,9 @@
   },
   "overrides": {
     "strip-ansi": "6.0.1"
+  },
+  "devDependencies": {
+    "parse5": "7.3.0",
+    "postcss": "8.5.23"
   }
 }
