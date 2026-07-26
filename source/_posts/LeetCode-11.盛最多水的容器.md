@@ -24,7 +24,7 @@ categories: [LeetCode]
 **说明：你不能倾斜容器。**
 **示例 1：**
 
-![image5](/images/LeetCode-11.盛最多水的容器/image5.png)
+![示例中最大面积为 49 的容器](/images/LeetCode-11.盛最多水的容器/image.png)
 
 **输入：[1,8,6,2,5,4,8,3,7]**
 **输出：49**
