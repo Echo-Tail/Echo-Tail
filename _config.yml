@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://echo-tail.github.io/Echo-Tail/
+url: https://snails.cafe
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -80,7 +80,8 @@ meta_generator: true
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
-updated_option: 'mtime'
+# Git does not preserve mtimes; use the publication date unless front matter sets `updated`.
+updated_option: 'date'
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -131,19 +132,19 @@ sitemap:
 filter_optimize:
   enable: true
   # static resource versioning
-  versioning: false
+  versioning: true
   css:
     # minify all css files
     minify: true
     excludes:
+      # Custom NexT styles are Stylus source and must be compiled before CSS minification.
+      - '**/*.styl'
     # use preload to load css elements dynamically
     delivery:
       - '@fortawesome/fontawesome-free'
       - 'fonts.googleapis.com'
-    # make specific css content inline into the html page
-    inlines:
-      # support full path only
-      - css/main.css
+    # Keep shared CSS as a cacheable file instead of duplicating it in every HTML page.
+    inlines: []
   js:
     # minify all js files
     minify: true

@@ -586,11 +586,11 @@ math:
 
 # Easily enable fast Ajax navigation on your website.
 # For more information: https://github.com/next-theme/pjax
-pjax: true
+pjax: false
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
 # For more information: https://fancyapps.com/fancybox/
-fancybox: true
+fancybox: false
 
 # Medium Zoom is a JavaScript library for zooming images like Medium.
 # Warning: Do not enable both `fancybox` and `mediumzoom`.
@@ -632,7 +632,7 @@ quicklink:
 # Use Animate.css to animate everything.
 # For more information: https://animate.style
 motion:
-  enable: true
+  enable: false
   async: false
   transition:
     # All available transition variants: https://theme-next.js.org/animate/
@@ -647,7 +647,7 @@ motion:
 # Progress bar in the top during page loading.
 # For more information: https://github.com/CodeByZach/pace
 pace:
-  enable: true
+  enable: false
   # All available colors:
   # black | blue | green | orange | pink | purple | red | silver | white | yellow
   color: blue
@@ -927,6 +927,17 @@ vendors:
   # custom_cdn_url: https://cdn.jsdelivr.net/npm/${npm_name}@${version}/${minified}
   # custom_cdn_url: https://cdnjs.cloudflare.com/ajax/libs/${cdnjs_name}/${version}/${cdnjs_file}
   custom_cdn_url:
+
+  # Runtime assets used by this site are vendored selectively under source/lib.
+  # This avoids slow foreign CDNs without copying the entire 9 MB plugin bundle.
+  fontawesome: /lib/fontawesome/css/all.min.css
+  anime: /lib/animejs/anime.min.js
+  mediumzoom: /lib/medium-zoom/medium-zoom.min.js
+  lazyload: /lib/lozad/lozad.min.js
+  local_search: /lib/search/search.js
+  gitalk_js: /lib/gitalk/gitalk.min.js
+  gitalk_css: /lib/gitalk/gitalk.css
+  creative_commons: /lib/creative-commons/by_nc_sa.svg
 
 # Assets
 # Accelerate delivery of static files using a CDN
