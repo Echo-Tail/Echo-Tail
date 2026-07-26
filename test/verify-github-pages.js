@@ -7,7 +7,8 @@ const parse5 = require('parse5');
 const {
   normalizeAssetUrl,
   parseSrcsetUrls,
-  resolveRegularFileInside
+  resolveRegularFileInside,
+  resolveRouteInside
 } = require('./lib/verification-helpers');
 
 const root = path.resolve(__dirname, '..');
@@ -109,6 +110,10 @@ for (const file of files) {
     localInternalLinkCount++;
     assert.ok(link.pathname.startsWith(pagePrefix),
       `internal GitHub Pages link must include ${pagePrefix}: ${link.rawUrl} in ${file}`);
+    assert.doesNotThrow(
+      () => resolveRouteInside(publicDir, link, pagePrefix, '/Echo-Tail'),
+      `internal GitHub Pages link must resolve to an uploaded route: ${link.rawUrl} in ${file}`
+    );
   }
 }
 
