@@ -12,6 +12,7 @@ const {
   parseHtmlResources,
   parseSrcsetUrls,
   resolveRegularFileInside,
+  resolveRouteInside,
   verifyContentHash
 } = require('./lib/verification-helpers');
 
@@ -58,6 +59,19 @@ test('normalized assets are not decoded a second time during file resolution', (
   fs.rmSync(temp, { recursive: true, force: true });
 });
 
+test('internal route resolution requires an existing file or directory index', () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'hexo-route-'));
+  const root = path.join(temp, 'public');
+  fs.mkdirSync(path.join(root, 'valid'), { recursive: true });
+  fs.writeFileSync(path.join(root, 'valid', 'index.html'), '<!doctype html>');
+  const valid = normalizeAssetUrl('/Echo-Tail/valid/', 'https://echo-tail.github.io/Echo-Tail/');
+  const missing = normalizeAssetUrl('/Echo-Tail/does-not-exist/', 'https://echo-tail.github.io/Echo-Tail/');
+  assert.equal(resolveRouteInside(root, valid, '/Echo-Tail/', '/Echo-Tail'),
+    path.join(root, 'valid', 'index.html'));
+  assert.throws(() => resolveRouteInside(root, missing, '/Echo-Tail/', '/Echo-Tail'));
+  fs.rmSync(temp, { recursive: true, force: true });
+});
+
 test('HTML parsing uses element semantics instead of interchangeable href/src regexes', () => {
   const html = `<!doctype html>
     <script>const fake = '<link rel="canonical" href="https://evil.example/">';</script>
@@ -90,6 +104,8 @@ test('srcset parsing rejects data candidates instead of skipping later local ass
     ['/images/a.png', '/images/b.png']);
   assert.throws(() => parseSrcsetUrls('data:image/gif;base64,AAAA 1x, /images/missing.png 2x'));
   assert.throws(() => parseSrcsetUrls('/images/a.png 1x, data:image/png;base64,BBBB 2x'));
+  assert.throws(() => parseSrcsetUrls(''));
+  assert.throws(() => parseSrcsetUrls('   '));
 });
 
 test('content hash must equal the first eight SHA-256 characters', () => {
@@ -121,6 +137,15 @@ test('CSS media matching rejects contradictory and negated scopes', () => {
   const negated = '@media not all and (max-width: 767px) { .site-subtitle { display: none; } }';
   assert.equal(findCssDeclaration(contradictory, '.post-block', 'padding', '28px', /min-width\s*:\s*992px/), false);
   assert.equal(findCssDeclaration(negated, '.site-subtitle', 'display', 'none', /max-width\s*:\s*767px/), false);
+});
+
+test('CSS media matching rejects mixed units, escaped negation, and impossible global scopes', () => {
+  const mixedUnits = '@media (min-width: 1in) and (max-width: 95px) { .post-block { padding: 28px; } }';
+  const escapedNegation = '@media n\\6ft all { .site-subtitle { display: none; } }';
+  const impossibleGlobal = '@media not all { .posts-expand .post-header { margin-bottom: 24px; } }';
+  assert.equal(findCssDeclaration(mixedUnits, '.post-block', 'padding', '28px', /max-width\s*:\s*95px/), false);
+  assert.equal(findCssDeclaration(escapedNegation, '.site-subtitle', 'display', 'none'), false);
+  assert.equal(findCssDeclaration(impossibleGlobal, '.posts-expand .post-header', 'margin-bottom', '24px'), false);
 });
 
 test('CSS parsing disables automatic previous source-map loading', () => {

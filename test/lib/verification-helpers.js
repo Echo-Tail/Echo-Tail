@@ -49,7 +49,7 @@ function normalizeAssetUrl(rawUrl, origin) {
   };
 }
 
-function resolveRegularFileInside(rootDir, rawPath, requiredPrefix = '/', stripPrefix = '') {
+function candidateInside(rootDir, rawPath, requiredPrefix = '/', stripPrefix = '') {
   const root = path.resolve(rootDir);
   const asset = typeof rawPath === 'string'
     ? normalizeAssetUrl(rawPath, 'https://local.invalid/')
@@ -78,7 +78,10 @@ function resolveRegularFileInside(rootDir, rawPath, requiredPrefix = '/', stripP
   if (!inside(root, candidate)) {
     throw new Error(`path escapes allowlisted root: ${asset.rawUrl}`);
   }
+  return { asset, candidate, root };
+}
 
+function assertRegularFile(root, candidate, asset) {
   const stat = fs.lstatSync(candidate);
   if (!stat.isFile() || stat.isSymbolicLink()) {
     throw new Error(`path must reference a regular non-symlink file: ${asset.rawUrl}`);
@@ -89,8 +92,20 @@ function resolveRegularFileInside(rootDir, rawPath, requiredPrefix = '/', stripP
   if (!inside(realRoot, realCandidate)) {
     throw new Error(`real path escapes allowlisted root: ${asset.rawUrl}`);
   }
+}
 
+function resolveRegularFileInside(rootDir, rawPath, requiredPrefix = '/', stripPrefix = '') {
+  const { asset, candidate, root } = candidateInside(rootDir, rawPath, requiredPrefix, stripPrefix);
+  assertRegularFile(root, candidate, asset);
   return candidate;
+}
+
+function resolveRouteInside(rootDir, rawPath, requiredPrefix = '/', stripPrefix = '') {
+  const { asset, candidate, root } = candidateInside(rootDir, rawPath, requiredPrefix, stripPrefix);
+  const stat = fs.lstatSync(candidate);
+  const routeFile = stat.isDirectory() ? path.join(candidate, 'index.html') : candidate;
+  assertRegularFile(root, routeFile, asset);
+  return routeFile;
 }
 
 function verifyContentHash(filePath, basename) {
@@ -144,7 +159,9 @@ function parseHtmlResources(html, origin) {
 }
 
 function parseSrcsetUrls(value) {
-  if (typeof value !== 'string' || value.trim() === '') return [];
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new Error('srcset must be a non-empty string when the attribute is present');
+  }
   if (/(?:^|,)\s*data:/i.test(value)) {
     throw new Error('data: candidates in srcset are unsupported because embedded commas are ambiguous');
   }
@@ -156,6 +173,37 @@ function parseSrcsetUrls(value) {
   });
 }
 
+function mediaScopeMatches(rule, mediaPattern) {
+  let parent = rule.parent;
+  let requestedScopeFound = mediaPattern === null;
+  let minimumWidth = Number.NEGATIVE_INFINITY;
+  let maximumWidth = Number.POSITIVE_INFINITY;
+
+  while (parent) {
+    if (parent.type === 'atrule' && parent.name.toLowerCase() === 'media') {
+      if (parent.params.includes('\\') || /\bnot\b/i.test(parent.params) || parent.params.includes(',')) {
+        return false;
+      }
+      if (mediaPattern) {
+        const pattern = new RegExp(mediaPattern.source, mediaPattern.flags.replace('g', ''));
+        if (pattern.test(parent.params)) requestedScopeFound = true;
+      }
+
+      const widthConditions = [...parent.params.matchAll(/\b(min|max)-width\s*:\s*([^)]+)/gi)];
+      for (const [, boundary, rawWidth] of widthConditions) {
+        const width = rawWidth.trim().match(/^([0-9]+(?:\.[0-9]+)?)px$/i);
+        if (!width) return false;
+        const pixels = Number(width[1]);
+        if (boundary.toLowerCase() === 'min') minimumWidth = Math.max(minimumWidth, pixels);
+        else maximumWidth = Math.min(maximumWidth, pixels);
+      }
+    }
+    parent = parent.parent;
+  }
+
+  return requestedScopeFound && minimumWidth <= maximumWidth;
+}
+
 function findCssDeclaration(css, selector, property, value, mediaPattern = null) {
   const root = postcss.parse(css, { from: undefined, map: false });
   let found = false;
@@ -163,38 +211,7 @@ function findCssDeclaration(css, selector, property, value, mediaPattern = null)
   root.walkRules(rule => {
     if (found) return;
     const selectors = rule.selectors || rule.selector.split(',').map(item => item.trim());
-    if (!selectors.includes(selector)) return;
-
-    if (mediaPattern) {
-      let parent = rule.parent;
-      let inRequestedMedia = false;
-      let minimumWidth = Number.NEGATIVE_INFINITY;
-      let maximumWidth = Number.POSITIVE_INFINITY;
-      let validScope = true;
-      while (parent) {
-        if (parent.type === 'atrule' && parent.name.toLowerCase() === 'media') {
-          if (/\bnot\b/i.test(parent.params) || parent.params.includes(',')) {
-            validScope = false;
-            break;
-          }
-          const pattern = new RegExp(mediaPattern.source, mediaPattern.flags.replace('g', ''));
-          if (pattern.test(parent.params)) inRequestedMedia = true;
-
-          const widthConditions = [...parent.params.matchAll(/\b(min|max)-width\s*:\s*([0-9]+(?:\.[0-9]+)?)px\b/gi)];
-          if (/\b(?:min|max)-width\s*:/i.test(parent.params) && widthConditions.length === 0) {
-            validScope = false;
-            break;
-          }
-          for (const [, boundary, width] of widthConditions) {
-            const pixels = Number(width);
-            if (boundary.toLowerCase() === 'min') minimumWidth = Math.max(minimumWidth, pixels);
-            else maximumWidth = Math.min(maximumWidth, pixels);
-          }
-        }
-        parent = parent.parent;
-      }
-      if (!validScope || !inRequestedMedia || minimumWidth > maximumWidth) return;
-    }
+    if (!selectors.includes(selector) || !mediaScopeMatches(rule, mediaPattern)) return;
 
     for (const node of rule.nodes || []) {
       if (node.type === 'decl' && node.prop === property && node.value.trim() === value) found = true;
@@ -210,5 +227,6 @@ module.exports = {
   parseHtmlResources,
   parseSrcsetUrls,
   resolveRegularFileInside,
+  resolveRouteInside,
   verifyContentHash
 };
