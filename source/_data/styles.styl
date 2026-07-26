@@ -7,3 +7,25 @@
 .archive .collection-title {
   display: none !important;
 }
+
+// Keep index cards compact enough to scan three posts on a desktop viewport.
+.posts-expand .post-header {
+  margin-bottom: 24px;
+}
+
+.posts-expand .post-button {
+  margin-top: 16px;
+}
+
+@media (min-width: 992px) {
+  .post-block {
+    padding: 28px;
+  }
+}
+
+// Prioritize article content on narrow screens.
+@media (max-width: 767px) {
+  .site-subtitle {
+    display: none;
+  }
+}
