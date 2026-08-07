@@ -728,7 +728,7 @@ gitalk:
   github_id: Echo-Tail # GitHub repo owner
   repo: EchoTailGitalkComments # Repository name to store issues
   client_id: Ov23liJtNJK3E7wiLEjN # GitHub Application Client ID
-  client_secret: ***REDACTED*** # GitHub Application Client Secret
+  client_secret: ${GITALK_CLIENT_SECRET} # GitHub Application Client Secret (injected via CI env)
   admin_user: Echo-Tail # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address

@@ -54,6 +54,10 @@ jobs:
         run: npm ci
       - name: Build with Hexo
         run: |
+          # 注入 Gitalk client secret（来自 GitHub Actions secrets，不在仓库明文）
+          if [ -n "${GITALK_CLIENT_SECRET:-}" ]; then
+            sed -i "s|client_secret:.*|client_secret: ${GITALK_CLIENT_SECRET}|" _config.next.yml
+          fi
           npx hexo clean --config _config.yml,_config.github-pages.yml
           npx hexo generate --config _config.yml,_config.github-pages.yml
       - name: Verify GitHub Pages project paths
