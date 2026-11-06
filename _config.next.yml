@@ -181,10 +181,9 @@ links_settings:
 
 links:
   #Title: https://example.com
-  Github: https://github.com
   hys: https://imaklex5.github.io/
   ikyun: https://blog.lkanyun.com/
-  SnailsWalk: https://www.cnblogs.com/SnailsWalk
+  skaimid: https://www.akira-dev.com/
 
 # Table of Contents in the Sidebar
 # Front-matter variable (nonsupport wrap expand_all).
